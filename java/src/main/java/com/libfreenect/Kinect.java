@@ -9,6 +9,11 @@ package com.libfreenect;
 public interface Kinect {
 
     /**
+     * Connect to the Kinect device.
+     */
+    public void connect();
+
+    /**
      * Get the Kinect's motor.
      * @return motor
      */

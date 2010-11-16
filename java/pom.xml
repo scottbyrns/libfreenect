@@ -12,7 +12,15 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <native.classpath>maven.compile.classpath</native.classpath>
   </properties>
+
+  <repositories>
+    <repository>
+      <id>opensource.mxtelecom.com</id>
+      <url>http://opensource.mxtelecom.com/maven/repo</url>
+    </repository>
+  </repositories>
 
   <dependencies>
     <dependency>
@@ -21,5 +29,55 @@
       <version>4.8.2</version>
       <scope>test</scope>
     </dependency>
+
+    <dependency>
+      <groupId>com.wapmx.native</groupId>
+      <artifactId>mx-native-loader</artifactId>
+      <version>1.2</version>
+    </dependency>
   </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <configuration>
+              <source>1.6</source>
+              <target>1.6</target>
+          </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>build-native</id>
+            <phase>process-classes</phase>
+            <goals>
+              <goal>run</goal>
+            </goals>
+            <configuration>
+              <tasks>
+                <echo file="${project.build.directory}/compile-classpath" message="${native.classpath}" />
+                <exec dir="src/main/native" executable="make" failonerror="true"/>
+                <copy todir="src/main/META-INF/lib/" includeEmptyDirs="yes" verbose="true">
+                    <fileset dir="src/main/native/" >
+                        <include name="**/*.dylib" />
+                    </fileset>
+                </copy>
+              </tasks>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+    </plugins>
+
+     <resources>
+       <resource>
+         <directory>src/main/META-INF/lib</directory>
+         <targetPath>META-INF/lib</targetPath>
+       </resource>
+     </resources>
+
+  </build>
 </project>
