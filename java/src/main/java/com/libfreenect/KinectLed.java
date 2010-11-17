@@ -1,5 +1,7 @@
 package com.libfreenect;
 
+import com.wapmx.nativeutils.jniloader.NativeLoader;
+
 /**
  * Implementation of the Led class to wrap the Kinect led.
  *
@@ -7,6 +9,15 @@ package com.libfreenect;
  * @version 0.1a
  */
 public class KinectLed implements Led {
+
+    static {
+        try {
+            NativeLoader.loadLibrary("com_libfreenect_KinectLed");
+        } catch (Throwable e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
+    }
 
     private LEDStatus ledStatus;
 
@@ -33,5 +44,20 @@ public class KinectLed implements Led {
      */
     public void setStatus(LEDStatus status) {
         ledStatus = status;
+        try {
+            commitLEDToDevice(getStatus().status());
+        }
+        catch (LedConnectionIssue e) {
+            /**
+             * TODO do something meaningful with this exception
+             */
+        }
     }
+
+    /**
+     * Natively implemented method to commit the led status to the device.
+     *
+     * @param value led status from 0 - 7
+     */
+    private native void commitLEDToDevice(int value);
 }

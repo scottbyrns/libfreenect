@@ -5,13 +5,19 @@ package com.libfreenect;
  */
 public enum LEDStatus {
 
-    OFF,
-    GREEN,
-    RED,
-    YELLOW,
-    BLINKING_YELLOW,
-    BLINKING_GREEN,
-    ALTERNATE_RED_YELLOW,
-    ALTERNATE_RED_GREEN
+    OFF(0),
+    GREEN(1),
+    RED(2),
+    YELLOW(3),
+    BLINKING_YELLOW(4),
+    BLINKING_GREEN(5),
+    ALTERNATE_RED_YELLOW(6),
+    ALTERNATE_RED_GREEN(7);
 
+    private int status;
+    LEDStatus(int status)
+    {
+        this.status = status;
+    }
+    public int status() { return status; }
 }
