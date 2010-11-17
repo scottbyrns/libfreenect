@@ -59,11 +59,11 @@
               <tasks>
                 <echo file="${project.build.directory}/compile-classpath" message="${native.classpath}" />
                 <exec dir="src/main/native" executable="make" failonerror="true"/>
-                <copy todir="src/main/META-INF/lib/" includeEmptyDirs="yes" verbose="true">
+                <move todir="src/main/META-INF/lib/" includeEmptyDirs="yes" verbose="true">
                     <fileset dir="src/main/native/" >
                         <include name="**/*.dylib" />
                     </fileset>
-                </copy>
+                </move>
               </tasks>
             </configuration>
           </execution>
