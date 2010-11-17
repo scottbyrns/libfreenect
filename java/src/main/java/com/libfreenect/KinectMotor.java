@@ -1,5 +1,7 @@
 package com.libfreenect;
 
+import com.wapmx.nativeutils.jniloader.NativeLoader;
+
 /**
  * Implementation of the Motor class to wrap the Kinect motor.
  *
@@ -7,6 +9,15 @@ package com.libfreenect;
  * @version 0.1a
  */
 public class KinectMotor implements Motor {
+    
+    static {
+        try {
+            NativeLoader.loadLibrary("com_libfreenect_KinectMotor");
+        } catch (Throwable e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
+    }
 
     private double position;
 
@@ -31,9 +42,9 @@ public class KinectMotor implements Motor {
      * @throws MotorPositionOutOfBounds if the provided position is greater than maximumPositionBoundary or less than minimumPositionBoundary
      */
     public void setPosition(double position) throws MotorConnectionIssue, MotorPositionOutOfBounds {
-
         ensurePositionIsInBounds(position);
         this.position = position;
+        commitPositionToDevice((int)(getPostion() * 100));
     }
 
     /**
@@ -57,4 +68,6 @@ public class KinectMotor implements Motor {
             throw new MotorPositionOutOfBounds();
         }
     }
+
+    private native void commitPositionToDevice(int position);
 }

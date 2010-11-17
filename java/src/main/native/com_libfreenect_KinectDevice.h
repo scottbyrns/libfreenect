@@ -16,6 +16,8 @@ extern "C" {
 JNIEXPORT void JNICALL Java_com_libfreenect_KinectDevice_connect
   (JNIEnv *, jobject);
 
+int freenect_set_tilt(freenect_device *dev, uint8_t tilt);
+
 #ifdef __cplusplus
 }
 #endif

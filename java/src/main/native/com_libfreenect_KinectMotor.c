@@ -5,10 +5,10 @@
 
 #include <libusb.h>
 #include "libfreenect.h"
-#include "com_libfreenect_KinectDevice.h"
+#include "com_libfreenect_KinectMotor.h"
 
 
-JNIEXPORT void JNICALL Java_com_libfreenect_KinectDevice_connect (JNIEnv * jnienv, jobject jobject) {
+JNIEXPORT void JNICALL Java_com_libfreenect_KinectMotor_commitPositionToDevice (JNIEnv * e, jobject o, jint position) {
     freenect_context *f_ctx;
 	freenect_device *f_dev;
 
@@ -22,13 +22,9 @@ JNIEXPORT void JNICALL Java_com_libfreenect_KinectDevice_connect (JNIEnv * jnien
 		printf("Could not open device\n");
 	}
 
-
-//	if (freenect_set_tilt(f_dev, 100) < 0) {
-//	    printf("Failed to tilt camera\n");
-//	}
-
-
-
+	if (freenect_set_tilt(f_dev, &position) < 0) {
+	    printf("%d\n", position);
+	    printf("Failed to tilt camera.\n");
+	}
 
 }
-
