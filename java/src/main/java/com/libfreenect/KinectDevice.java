@@ -3,7 +3,10 @@ package com.libfreenect;
 import com.wapmx.nativeutils.jniloader.NativeLoader;
 
 /**
- * Created by scott Date: Nov 15, 2010 Time: 10:41:39 PM
+ *
+ *
+ * @author Scott Byrns
+ * @version 0.1a
  */
 public class KinectDevice implements Kinect {
 

@@ -2,7 +2,7 @@ package com.libfreenect;
 
 /**
  * Exception to throw when a communications error arises when attempting to access the
- * camera in the Kinect.
+ * motor in the Kinect.
  *
  * @author Scott Byrns
  * @version 0.1a
