@@ -37,6 +37,19 @@ public class MotorTest {
     }
 
     @Test
+    public void testSetMotorPositionMin () {
+        try {
+            motor.setPosition(0.0);
+        }
+        catch (MotorPositionOutOfBounds e) {
+            fail("The motor attempted to move out of bounds");
+        }
+        catch (MotorConnectionIssue e) {
+            fail("Failed to connect to the Kinect camera motor");
+        }
+    }
+
+    @Test
     public void testSetMotorPosition () {
         try {
             motor.setPosition(0.5);
