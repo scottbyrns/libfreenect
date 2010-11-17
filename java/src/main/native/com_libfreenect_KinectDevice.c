@@ -12,8 +12,6 @@ JNIEXPORT void JNICALL Java_com_libfreenect_KinectDevice_connect (JNIEnv * jnien
     freenect_context *f_ctx;
 	freenect_device *f_dev;
 
-	printf("Kinect camera test\n");
-
 	if (freenect_init(&f_ctx, NULL) < 0) {
 		printf("freenect_init() failed\n");
 	}

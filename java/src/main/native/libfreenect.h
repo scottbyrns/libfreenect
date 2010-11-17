@@ -88,3 +88,15 @@ int freenect_stop_rgb(freenect_device *dev);
 #endif
 
 #endif
+
+
+typedef enum {
+	FREENECT_LED_OFF = 0x0,
+	FREENECT_LED_GREEN = 0x1,
+	FREENECT_LED_RED= 0x2,
+	FREENECT_LED_ORANGE = 0x3,
+	FREENECT_LED_BLINKING_ORANGE = 0x4,
+	FREENECT_LED_BLINKING_GREEN = 0x5,
+	FREENECT_LED_ALTERNATE_RED_ORANGE = 0x6,
+	FREENECT_LED_ALTERNATE_RED_GREEN = 0x7,
+} freenect_led;
