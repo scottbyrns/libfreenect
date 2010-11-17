@@ -22,13 +22,7 @@ JNIEXPORT void JNICALL Java_com_libfreenect_KinectDevice_connect (JNIEnv * jnien
 		printf("Could not open device\n");
 	}
 
-
-//	if (freenect_set_tilt(f_dev, 100) < 0) {
-//	    printf("Failed to tilt camera\n");
-//	}
-
-
-
+    freenect_close_device(f_dev);
 
 }
 

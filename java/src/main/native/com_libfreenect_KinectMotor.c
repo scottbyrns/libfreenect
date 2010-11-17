@@ -22,9 +22,11 @@ JNIEXPORT void JNICALL Java_com_libfreenect_KinectMotor_commitPositionToDevice (
 		printf("Could not open device\n");
 	}
 
-	if (freenect_set_tilt(f_dev, &position) < 0) {
+	if (freenect_set_tilt(f_dev, position) < 0) {
 	    printf("%d\n", position);
 	    printf("Failed to tilt camera.\n");
 	}
+
+	freenect_close_device(f_dev);
 
 }
