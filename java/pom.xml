@@ -1,83 +1,103 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.libfreenect</groupId>
-  <artifactId>libfreenect</artifactId>
-  <version>1.0-SNAPSHOT</version>
-  <packaging>jar</packaging>
+    <groupId>com.libfreenect</groupId>
+    <artifactId>libfreenect</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
 
-  <name>libfreenect</name>
-  <url>http://maven.apache.org</url>
+    <name>libfreenect</name>
+    <url>http://maven.apache.org</url>
 
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <native.classpath>maven.compile.classpath</native.classpath>
-  </properties>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <native.classpath>maven.compile.classpath</native.classpath>
+    </properties>
 
-  <repositories>
-    <repository>
-      <id>opensource.mxtelecom.com</id>
-      <url>http://opensource.mxtelecom.com/maven/repo</url>
-    </repository>
-  </repositories>
+    <repositories>
+        <repository>
+            <id>opensource.mxtelecom.com</id>
+            <url>http://opensource.mxtelecom.com/maven/repo</url>
+        </repository>
+    </repositories>
 
-  <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.8.2</version>
-      <scope>test</scope>
-    </dependency>
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.8.2</version>
+            <scope>test</scope>
+        </dependency>
 
-    <dependency>
-      <groupId>com.wapmx.native</groupId>
-      <artifactId>mx-native-loader</artifactId>
-      <version>1.2</version>
-    </dependency>
-  </dependencies>
+        <dependency>
+            <groupId>com.wapmx.native</groupId>
+            <artifactId>mx-native-loader</artifactId>
+            <version>1.2</version>
+        </dependency>
+    </dependencies>
 
-  <build>
-    <plugins>
-      <plugin>
-          <artifactId>maven-compiler-plugin</artifactId>
-          <configuration>
-              <source>1.6</source>
-              <target>1.6</target>
-          </configuration>
-      </plugin>
-      <plugin>
-        <artifactId>maven-antrun-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>build-native</id>
-            <phase>process-classes</phase>
-            <goals>
-              <goal>run</goal>
-            </goals>
-            <configuration>
-              <tasks>
-                <echo file="${project.build.directory}/compile-classpath" message="${native.classpath}" />
-                <exec dir="src/main/native" executable="make" failonerror="true"/>
-                <move todir="src/main/META-INF/lib/" includeEmptyDirs="yes" verbose="true">
-                    <fileset dir="src/main/native/" >
-                        <include name="**/*.dylib" />
-                    </fileset>
-                </move>
-              </tasks>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
+    <build>
+        <plugins>
 
-    </plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>com.scottbyrns.kinect.Kinect</mainClass>
+                            <packageName>com.scottbyrns.kinect</packageName>
+                            <addClasspath>true</addClasspath>
+                        </manifest>
+                        <manifestEntries>
+                            <mode>development</mode>
+                            <url>${pom.url}</url>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+            </plugin>
 
-     <resources>
-       <resource>
-         <directory>src/main/META-INF/lib</directory>
-         <targetPath>META-INF/lib</targetPath>
-       </resource>
-     </resources>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>build-native</id>
+                        <phase>process-classes</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <tasks>
+                                <echo file="${project.build.directory}/compile-classpath"
+                                      message="${native.classpath}"/>
+                                <exec dir="src/main/native" executable="make" failonerror="true"/>
+                                <move todir="src/main/META-INF/lib/" includeEmptyDirs="yes" verbose="true">
+                                    <fileset dir="src/main/native/">
+                                        <include name="**/*.dylib"/>
+                                    </fileset>
+                                </move>
+                            </tasks>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
 
-  </build>
+        </plugins>
+
+        <resources>
+            <resource>
+                <directory>src/main/META-INF/lib</directory>
+                <targetPath>META-INF/lib</targetPath>
+            </resource>
+        </resources>
+
+    </build>
 </project>

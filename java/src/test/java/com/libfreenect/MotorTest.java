@@ -65,7 +65,7 @@ public class MotorTest {
     @Test
     public void testSetMotorPositionMin () {
         try {
-            motor.setPosition(0.5);
+            motor.setPosition(0.0);
         }
         catch (MotorPositionOutOfBounds e) {
             fail("The motor attempted to move out of bounds");
@@ -78,7 +78,7 @@ public class MotorTest {
     @Test
     public void testSetMotorPosition () {
         try {
-            motor.setPosition(0.5);
+            motor.setPosition(1.0);
         }
         catch (MotorPositionOutOfBounds e) {
             fail("The motor attempted to move out of bounds");
@@ -88,7 +88,7 @@ public class MotorTest {
         }
 
         try {
-            assertEquals(0.5, motor.getPostion(), 0.001);
+            assertEquals(1.0, motor.getPostion(), 0.001);
         }
         catch (MotorConnectionIssue e) {
             fail("Failed to connect to the Kinect camera motor");
@@ -98,8 +98,21 @@ public class MotorTest {
     @Test
     public void testSetMotorPositoinDoesntGoOutOfBunds () {
         boolean outOfBounds = false;
+
         try {
             motor.setPosition(1.1);
+        }
+        catch (MotorPositionOutOfBounds e) {
+            outOfBounds = true;
+        }
+        catch (MotorConnectionIssue e) {
+            fail("Failed to connect to the Kinect camera motor");
+        }
+
+        assertTrue(outOfBounds);
+        outOfBounds = false;
+
+        try {
             motor.setPosition(-0.1);
         }
         catch (MotorPositionOutOfBounds e) {
@@ -108,6 +121,7 @@ public class MotorTest {
         catch (MotorConnectionIssue e) {
             fail("Failed to connect to the Kinect camera motor");
         }
+
 
         assertTrue(outOfBounds);
     }

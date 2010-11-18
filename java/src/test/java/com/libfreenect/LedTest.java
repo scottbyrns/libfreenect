@@ -50,6 +50,7 @@ public class LedTest {
     @Test
     public void testGetStatus () {
         try {
+            kinectLed.setStatus(LEDStatus.GREEN);
             assertEquals(LEDStatus.GREEN, kinectLed.getStatus());
         }
         catch (LedConnectionIssue e) {
@@ -59,9 +60,9 @@ public class LedTest {
 
     @Test
     public void testSetStatus () {
-        kinectLed.setStatus(LEDStatus.BLINKING_YELLOW);
+        kinectLed.setStatus(LEDStatus.RED);
         try {
-            assertEquals(LEDStatus.BLINKING_YELLOW, kinectLed.getStatus());
+            assertEquals(LEDStatus.RED, kinectLed.getStatus());
         }
         catch (LedConnectionIssue e) {
             fail("Error attempting to communicate with the Kinect's led.");

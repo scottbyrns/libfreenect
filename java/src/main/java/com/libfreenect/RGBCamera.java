@@ -26,6 +26,8 @@
 
 package com.libfreenect;
 
+import java.awt.image.BufferedImage;
+
 /**
  * Kinect's RGB camera
  *
@@ -53,4 +55,14 @@ public interface RGBCamera {
      */
     public void close ();
 
+    /**
+     * Capture a single still image from the kinects RGB camera.
+     *
+     * @return still image from rgb camera
+     */
+    public BufferedImage captureStillImage ();
+    public void captureRawImage ();
+
+    public int[] getImageData();
+    public BufferedImage captureImage ();
 }

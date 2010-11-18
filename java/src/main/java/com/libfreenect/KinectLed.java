@@ -51,7 +51,7 @@ public class KinectLed implements Led {
      * Create a new Kinect LED object.
      */
     public KinectLed () {
-        setStatus(LEDStatus.BLINKING_YELLOW);
+//        setStatus(LEDStatus.BLINKING_YELLOW);
     }
 
     /**

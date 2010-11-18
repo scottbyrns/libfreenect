@@ -51,12 +51,12 @@ public class KinectMotor implements Motor {
     private static final double maximumPositionBoundary = 1.0;
 
     public KinectMotor () throws MotorConnectionIssue {
-            try {
-                setPosition(minimumPositionBoundary);
-            }
-            catch (MotorPositionOutOfBounds e) {
-                /* Ignore this one since we are providing a default valid value */
-            }
+//            try {
+//                setPosition(minimumPositionBoundary);
+//            }
+//            catch (MotorPositionOutOfBounds e) {
+//                /* Ignore this one since we are providing a default valid value */
+//            }
     }
 
     /**
