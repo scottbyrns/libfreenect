@@ -27,30 +27,11 @@
 package com.libfreenect;
 
 /**
- * Kinect's Depth camera
+ * Interface to describe the functionality of the Kinect's accelerometer
  *
  * @author Scott Byrns
  * @version 0.1a
+ * TODO define interface
  */
-public interface DepthCamera {
-
-    /**
-     * Open a connection to the Kinect's depth camera.
-     *
-     * @throws DepthCameraConnectionIssue if a communications error occurs
-     */
-    public void open () throws DepthCameraConnectionIssue;
-
-    /**
-     * Check if the camera has an open connection to the Kinect
-     *
-     * @return boolean representation of the connection state
-     */
-    public boolean isOpen ();
-
-    /**
-     * Close the connection to the Kinect's depth camera.
-     */
-    public void close ();
-    
+public interface Accelerometer {
 }

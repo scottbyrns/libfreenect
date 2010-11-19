@@ -44,22 +44,12 @@ public class MotorTest {
 
     @Before
     public void setup () {
-        try {
-            motor = new KinectMotor();
-        }
-        catch (MotorConnectionIssue e) {
-            fail("Failed to connect to the Kinect camera motor");
-        }
+        motor = new KinectMotor(KinectDevice.createInstance());
     }
 
     @Test
     public void testGetMotorPosition () {
-        try {
-            assertEquals(0.0, motor.getPostion(), 0.001);
-        }
-        catch (MotorConnectionIssue e) {
-            fail("Failed to connect to the Kinect camera motor");
-        }
+        assertEquals(0.0, motor.getPostion(), 0.001);
     }
 
     @Test
@@ -69,9 +59,6 @@ public class MotorTest {
         }
         catch (MotorPositionOutOfBounds e) {
             fail("The motor attempted to move out of bounds");
-        }
-        catch (MotorConnectionIssue e) {
-            fail("Failed to connect to the Kinect camera motor");
         }
     }
 
@@ -83,16 +70,7 @@ public class MotorTest {
         catch (MotorPositionOutOfBounds e) {
             fail("The motor attempted to move out of bounds");
         }
-        catch (MotorConnectionIssue e) {
-            fail("Failed to connect to the Kinect camera motor");
-        }
-
-        try {
-            assertEquals(1.0, motor.getPostion(), 0.001);
-        }
-        catch (MotorConnectionIssue e) {
-            fail("Failed to connect to the Kinect camera motor");
-        }
+        assertEquals(1.0, motor.getPostion(), 0.001);
     }
 
     @Test
@@ -105,9 +83,6 @@ public class MotorTest {
         catch (MotorPositionOutOfBounds e) {
             outOfBounds = true;
         }
-        catch (MotorConnectionIssue e) {
-            fail("Failed to connect to the Kinect camera motor");
-        }
 
         assertTrue(outOfBounds);
         outOfBounds = false;
@@ -118,10 +93,6 @@ public class MotorTest {
         catch (MotorPositionOutOfBounds e) {
             outOfBounds = true;
         }
-        catch (MotorConnectionIssue e) {
-            fail("Failed to connect to the Kinect camera motor");
-        }
-
 
         assertTrue(outOfBounds);
     }

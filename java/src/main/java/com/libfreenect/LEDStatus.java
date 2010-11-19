@@ -30,7 +30,7 @@ package com.libfreenect;
  * Enumeration of the LED statuses
  *
  * @author Scott Byrns
- * @version 0.1a
+ * @version 0.2a
  */
 public enum LEDStatus {
 
@@ -44,9 +44,10 @@ public enum LEDStatus {
     ALTERNATE_RED_GREEN(7);
 
     private int status;
-    LEDStatus(int status)
-    {
+    LEDStatus(int status) {
         this.status = status;
     }
-    public int status() { return status; }
+    public int status() {
+        return status;
+    }
 }

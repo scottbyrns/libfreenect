@@ -26,139 +26,30 @@
 
 package com.libfreenect;
 
-import com.wapmx.nativeutils.jniloader.NativeLoader;
-
-import java.awt.image.BufferedImage;
-
 /**
  * Implementation of the RGBCamera class to wrap the Kinect RGB camera.
  *
  * @author Scott Byrns
- * @version 0.1a
+ * @version 0.2a
  */
-public class KinectRGBCamera implements RGBCamera, Runnable {
+public class KinectRGBCamera extends Camera {
 
-    static {
-        try {
-            NativeLoader.loadLibrary("com_libfreenect_KinectRGBCamera");
-        } catch (Throwable e) {
-            e.printStackTrace();
-            System.exit(1);
-        }
+    public KinectRGBCamera (KinectDevice device) {
+        super(device);
     }
 
     /**
-     * Width of the image
+     * Open a connection to the Kinect's depth camera.
      */
-    private int width = 640;
-    /**
-     * Height of the image
-     */
-    private int height = 480;
-
-    private boolean open = false;
-
-    int[] imageData;
-
-    int[] bufferImage;
-
-    public KinectRGBCamera () {
-        imageData = new int[getWidth() * getHeight() * 3];
+    public void open() {
+        getHostDevice().issueCommand(KinectCommands.TURN_RGB_CAMERA_ON);
     }
 
     /**
-     * Open a connection to the Kinect's RGB camera.
-     *
-     * @throws RGBCameraConnectionIssue if a communications error occurs
+     * Close the connection to the Kinect's depth camera.
      */
-    public void open() throws RGBCameraConnectionIssue {
-        /**
-         * TODO write
-         */
-    }
-
-    /**
-     * Check if the camera has an open connection to the Kinect
-     *
-     * @return boolean representation of the connection state
-     */
-    public boolean isOpen () {
-        /**
-         * TODO write
-         */
-        return false;
-    }
-
     public void close() {
-        /**
-         * TODO write
-         */
+        getHostDevice().issueCommand(KinectCommands.TURN_RGB_CAMERA_OFF);
     }
-
-    /**
-     * Capture a single still image from the kinects RGB camera.
-     *
-     * @return still image from rgb camera
-     */
-    public BufferedImage captureStillImage () {
-        return captureImage();
-    }
-
-    public BufferedImage captureImage () {
-//        captureRawImage();
-//        int[] imageData = captureRawImage();
-        int[] imageRGB = new int[getWidth()*getHeight()];
-        int pos = 0;
-        for (int i = 0; i < getImageData().length; i += 3) {
-            imageRGB[pos++] = (256*256*getImageData()[i]+256*getImageData()[i+1]+getImageData()[i+2]);
-
-        }
-
-        BufferedImage image = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_RGB);
-
-        image.setRGB(0, 0, getWidth(), getHeight(), imageRGB, 0, 640);
-        return image;
-    }
-
-    /**
-     * Get the width of the image
-     *
-     * @return width
-     */
-    private int getWidth () {
-        return width;
-    }
-
-    /**
-     * Get the height of the image
-     *
-     * @return height
-     */
-    private int getHeight () {
-        return height;
-    }
-
-    private void setImageData(int[] imageData) {
-        this.imageData = imageData;
-    }
-
-    public int[] getImageData() {
-        return this.imageData;
-    }
-
-    public int[] getBufferImage() {
-        return bufferImage;
-    }
-
-    public void setBufferImage(int[] bufferImage) {
-        this.bufferImage = bufferImage;
-    }
-
-    public native void captureRawImage ();
-
-    @Override
-    public void run () {
-        captureRawImage();
-    }
-
+    
 }

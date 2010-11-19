@@ -38,11 +38,11 @@ import org.junit.Test;
  */
 public class RGBCameraTest{
 
-    private RGBCamera rgbCamera;
+    private Camera rgbCamera;
 
     @Before
     public void setup () {
-        rgbCamera = new KinectRGBCamera();
+        rgbCamera = KinectDevice.createInstance().getRGBCamera();
     }
 
     @Test

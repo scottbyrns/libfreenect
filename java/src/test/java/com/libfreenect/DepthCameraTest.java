@@ -38,11 +38,11 @@ import org.junit.Test;
  */
 public class DepthCameraTest {
 
-    private DepthCamera depthCamera;
+    private Camera depthCamera;
 
     @Before
     public void setup () {
-        depthCamera = new KinectDepthCamera();
+        depthCamera = KinectDevice.createInstance().getDepthCamera();
     }
 
     @Test

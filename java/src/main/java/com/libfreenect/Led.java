@@ -30,7 +30,7 @@ package com.libfreenect;
  * Kinect's status LED
  *
  * @author Scott Byrns
- * @version 0.1a
+ * @version 0.2a
  */
 public interface Led {
 
@@ -40,7 +40,7 @@ public interface Led {
      * @return current status
      * @throws LedConnectionIssue if communication with the Kinect's led fails.
      */
-    public LEDStatus getStatus () throws LedConnectionIssue;
+    public LEDStatus getStatus ();
 
     /**
      * Set the LED status for the Kinect

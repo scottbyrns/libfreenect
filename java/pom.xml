@@ -41,13 +41,26 @@
         <plugins>
 
             <plugin>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>unpack-dependencies</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>unpack-dependencies</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.scottbyrns.kinect.Kinect</mainClass>
-                            <packageName>com.scottbyrns.kinect</packageName>
+                            <mainClass>com.example.kinect.Kinect</mainClass>
+                            <packageName>com.example.kinect</packageName>
                             <addClasspath>true</addClasspath>
                         </manifest>
                         <manifestEntries>
@@ -93,6 +106,9 @@
         </plugins>
 
         <resources>
+            <resource>
+                <directory>${basedir}/target/dependency</directory>
+            </resource>
             <resource>
                 <directory>src/main/META-INF/lib</directory>
                 <targetPath>META-INF/lib</targetPath>

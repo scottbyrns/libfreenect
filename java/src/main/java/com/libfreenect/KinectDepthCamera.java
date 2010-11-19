@@ -30,40 +30,25 @@ package com.libfreenect;
  * Implementation of the DepthCamera class to wrap the Kinect depth camera.
  *
  * @author Scott Byrns
- * @version 0.1a
- * TODO actually write this
+ * @version 0.2a
  */
-public class KinectDepthCamera implements DepthCamera {
+public class KinectDepthCamera extends Camera {
 
-    /**
-     * Open a connection to the Kinect's depth camera.
-     *
-     * @throws DepthCameraConnectionIssue if a communications error occurs
-     */
-    public void open() throws DepthCameraConnectionIssue {
-        /**
-         * TODO write
-         */
+    public KinectDepthCamera (KinectDevice device) {
+        super(device);
     }
 
     /**
-     * Check if the camera has an open connection to the Kinect
-     *
-     * @return boolean representation of the connection state
+     * Open a connection to the Kinect's depth camera.
      */
-    public boolean isOpen () {
-        /**
-         * TODO write
-         */
-        return false;
+    public void open() {
+        getHostDevice().issueCommand(KinectCommands.TURN_DEPTH_CAMERA_ON);
     }
 
     /**
      * Close the connection to the Kinect's depth camera.
      */
     public void close() {
-        /**
-         * TODO write
-         */
+        getHostDevice().issueCommand(KinectCommands.TURN_DEPTH_CAMERA_OFF);
     }
 }

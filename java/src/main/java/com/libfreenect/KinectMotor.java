@@ -26,37 +26,31 @@
 
 package com.libfreenect;
 
-import com.wapmx.nativeutils.jniloader.NativeLoader;
-
 /**
  * Implementation of the Motor class to wrap the Kinect motor.
  *
  * @author Scott Byrns
- * @version 0.1a
+ * @version 0.2a
  */
 public class KinectMotor implements Motor {
-    
-    static {
-        try {
-            NativeLoader.loadLibrary("com_libfreenect_KinectMotor");
-        } catch (Throwable e) {
-            e.printStackTrace();
-            System.exit(1);
-        }
-    }
 
     private double position;
+
+    private KinectDevice hostDevice;
 
     private static final double minimumPositionBoundary = 0.0;
     private static final double maximumPositionBoundary = 1.0;
 
-    public KinectMotor () throws MotorConnectionIssue {
-//            try {
-//                setPosition(minimumPositionBoundary);
-//            }
-//            catch (MotorPositionOutOfBounds e) {
-//                /* Ignore this one since we are providing a default valid value */
-//            }
+    public KinectMotor (KinectDevice hostDevice) {
+        setHostDevice(hostDevice); 
+    }
+
+    /**
+     * Set the host Kinect device for this function
+     * @param hostDevice host device
+     */
+    private void setHostDevice(KinectDevice hostDevice) {
+        this.hostDevice = hostDevice; 
     }
 
     /**
@@ -67,10 +61,11 @@ public class KinectMotor implements Motor {
      * @throws MotorConnectionIssue if there is an issue communicating with the camera.
      * @throws MotorPositionOutOfBounds if the provided position is greater than maximumPositionBoundary or less than minimumPositionBoundary
      */
-    public void setPosition(double position) throws MotorConnectionIssue, MotorPositionOutOfBounds {
+    public void setPosition(double position) throws MotorPositionOutOfBounds {
         ensurePositionIsInBounds(position);
         this.position = position;
-        commitPositionToDevice((int)(getPostion() * 100));
+        hostDevice.issueCommand(KinectCommands.UPDATE_MOTOR_POSITION);
+//        commitPositionToDevice((int)(getPostion() * 100));
     }
 
     /**
@@ -79,7 +74,7 @@ public class KinectMotor implements Motor {
      * @return position of the camera.
      * @throws MotorConnectionIssue if there is an issue communicating with the camera.
      */
-    public double getPostion() throws MotorConnectionIssue {
+    public double getPostion() {
         return position;
     }
 
@@ -95,5 +90,4 @@ public class KinectMotor implements Motor {
         }
     }
 
-    private native void commitPositionToDevice(int position);
 }

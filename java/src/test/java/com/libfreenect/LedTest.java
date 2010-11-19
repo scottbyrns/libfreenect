@@ -36,7 +36,7 @@ import static org.junit.Assert.*;
  * Test the implementation of Led
  *
  * @author Scott Byrns
- * @version 0.1a
+ * @version 0.2a
  */
 public class LedTest {
 
@@ -44,29 +44,19 @@ public class LedTest {
 
     @Before
     public void setup () {
-        kinectLed = new KinectLed();
+        kinectLed = new KinectLed(KinectDevice.createInstance());
     }
 
     @Test
     public void testGetStatus () {
-        try {
-            kinectLed.setStatus(LEDStatus.GREEN);
-            assertEquals(LEDStatus.GREEN, kinectLed.getStatus());
-        }
-        catch (LedConnectionIssue e) {
-            fail("Error attempting to communicate with the Kinect's led.");
-        }
+        kinectLed.setStatus(LEDStatus.GREEN);
+        assertEquals(LEDStatus.GREEN, kinectLed.getStatus());
     }
 
     @Test
     public void testSetStatus () {
         kinectLed.setStatus(LEDStatus.RED);
-        try {
-            assertEquals(LEDStatus.RED, kinectLed.getStatus());
-        }
-        catch (LedConnectionIssue e) {
-            fail("Error attempting to communicate with the Kinect's led.");
-        }
+        assertEquals(LEDStatus.RED, kinectLed.getStatus());
     }
 
     @After

@@ -24,20 +24,17 @@
  * either License.
  */
 
-package com.libfreenect;
+package com.example.kinect;
 
 /**
- * Exception to throw when a communications error arises when attempting to access the
- * RGB camera in the Kinect.
+ * Created: Nov 18, 2010
  *
- * @author Scott Byrns
- * @version 0.1a
+ * @author scott
  */
-public class RGBCameraConnectionIssue extends KinectConnectionIssue {
-
-    public static final String message = "There was an issue communicating with the Kinect's rgb camera.";
-
-    public RGBCameraConnectionIssue () {
-        super(message);
+public class DepthPanel extends CameraPanel {
+    public DepthPanel () {
+        super();
+        offsetLeft = 640;
+//        edges = true;
     }
 }

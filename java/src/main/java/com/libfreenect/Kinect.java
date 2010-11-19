@@ -30,14 +30,36 @@ package com.libfreenect;
  * Class to encapsulate the functionality of the Kinect
  *
  * @author Scott Byrns
- * @version 0.1a
+ * @version 0.2a
  */
-public interface Kinect {
+public interface Kinect extends Runnable {
 
     /**
-     * Connect to the Kinect device.
+     * Issue a command to the Kinect JNI driver.
+     * Any commands issued will be placed in a queue and executed in the order they were received.
+     *
+     * @param command command to be issued to the Kinect
      */
-    public void connect();
+    public void issueCommand (KinectCommands command);
+
+    /**
+     * Close the connection to the Kinect Device
+     */
+    public void close();
+
+    /**
+     * Get the Kinect's RGB Camera
+     *
+     * @return RGB Camera
+     */
+    public Camera getRGBCamera ();
+
+    /**
+     * Get the Kinect's Depth Camera
+     *
+     * @return Depth Camera
+     */
+    public Camera getDepthCamera ();
 
     /**
      * Get the Kinect's motor.
@@ -47,13 +69,6 @@ public interface Kinect {
     public Motor getMotor();
 
     /**
-     * Set the Kinect's motor.
-     *
-     * @param motor new motor to assign to the Kinect
-     */
-    public void setMotor(Motor motor);
-
-    /**
      * Get the Kinect's LED
      *
      * @return led
@@ -61,10 +76,10 @@ public interface Kinect {
     public Led getLed ();
 
     /**
-     * Set the Kinect's LED
-     * 
-     * @param led new led to assign to the Kinect
+     * Get the Kinect's Accelerometer
+     *
+     * @return accelerometer
      */
-    public void setLed (Led led);
+    public Accelerometer getAccelerometer ();
 
 }

@@ -26,43 +26,35 @@
 
 package com.libfreenect;
 
-import java.awt.image.BufferedImage;
 
 /**
- * Kinect's RGB camera
+ * Enumeration of commands that can be issued to the Kinect JNI
  *
  * @author Scott Byrns
  * @version 0.1a
  */
-public interface RGBCamera {
+public enum KinectCommands {
 
-    /**
-     * Open a connection to the Kinect's RGB camera.
-     *
-     * @throws RGBCameraConnectionIssue if a communications error occurs
-     */
-    public void open () throws RGBCameraConnectionIssue;
+    INITIALIZE_KINECT(0),
+    DISSCONNECT_KINECT(1),
 
-    /**
-     * Check if the camera has an open connection to the Kinect
-     *
-     * @return boolean representation of the connection state
-     */
-    public boolean isOpen ();
+    TURN_RGB_CAMERA_ON(2),
+    TURN_RGB_CAMERA_OFF(3),
 
-    /**
-     * Close the connection to the Kinect's RGB camera.
-     */
-    public void close ();
+    TURN_DEPTH_CAMERA_ON(4),
+    TURN_DEPTH_CAMERA_OFF(5),
 
-    /**
-     * Capture a single still image from the kinects RGB camera.
-     *
-     * @return still image from rgb camera
-     */
-    public BufferedImage captureStillImage ();
-    public void captureRawImage ();
+    UPDATE_MOTOR_POSITION(6),
+    UPDATE_LED_STATE(7),
 
-    public int[] getImageData();
-    public BufferedImage captureImage ();
+    TURN_ACCELEROMETER_ON(8),
+    TURN_ACCELEROMETER_OFF(9);
+
+    private int command;
+    KinectCommands(int command) {
+        this.command = command;
+    }
+    public int command() {
+        return command;
+    }
 }
