@@ -59,7 +59,7 @@ public interface Kinect extends Runnable {
      *
      * @return Depth Camera
      */
-    public Camera getDepthCamera ();
+    public KinectDepthCamera getDepthCamera ();
 
     /**
      * Get the Kinect's motor.

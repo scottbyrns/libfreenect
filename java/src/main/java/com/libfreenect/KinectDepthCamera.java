@@ -34,7 +34,7 @@ package com.libfreenect;
  */
 public class KinectDepthCamera extends Camera {
 
-    public KinectDepthCamera (KinectDevice device) {
+    public KinectDepthCamera(KinectDevice device) {
         super(device);
     }
 
@@ -51,4 +51,69 @@ public class KinectDepthCamera extends Camera {
     public void close() {
         getHostDevice().issueCommand(KinectCommands.TURN_DEPTH_CAMERA_OFF);
     }
+
+    /**
+     * Get the coordinates of the points recorded with the depth camera.
+     *
+     * @return points recorded with the depth camera
+     */
+    public int[][] getPoints() {
+        int[] data = getImageData();
+        int[][] points = new int[data.length/3][3];
+
+        float z, r, g, b, x, y;
+        int lb = 0;
+        int pval = 0;
+        if (data.length > 0) {
+
+            for (int i = 0; i < data.length; i += 3) {
+                r = data[i];
+                g = data[i + 1];
+                b = data[i + 2];
+
+                y = i / 1920;
+                x = (i - (y * 1920)) / 3;
+
+                if (r == 0 && g == 0 && b > 0) {
+                    pval = 5 << 8;
+                    lb = 255 - (int) b;
+                }
+                if (r == 0 && g > 0 && g < 255 && b == 255) {
+                    pval = 4 << 8;
+                    lb = 255 - (int) g;
+                }
+                if (b == 0 && g == 255 && r > 0) {
+                    pval = 2 << 8;
+                    lb = 255 - (int) r;
+                }
+                if (r == 0 && g == 255) {
+                    pval = 3 << 8;
+                    lb = (int) b;
+                }
+                if (r == 255 && b == 0) {
+                    pval = 1 << 8;
+                    lb = (int) g;
+                }
+                if (r == 255 && b == g) {
+                    pval = 0 << 8;
+                    lb = 255 - (int) b;
+                }
+                if (r == 0 && g == 0 && b == 0) {
+                    pval = -1;
+                }
+
+                z = pval + lb;
+                z *= 0.8;
+
+
+                points[i / 3][0] = (int) x;
+                points[i / 3][1] = (int) y;
+                points[i / 3][2] = (int) z;
+            }
+
+
+        }
+        return points;
+    }
 }
+

@@ -82,7 +82,6 @@ public abstract class Camera {
         int pos = 0;
         for (int i = 0; i < getImageData().length; i += 3) {
             imageRGB[pos++] = (256*256*getImageData()[i]+256*getImageData()[i+1]+getImageData()[i+2]);
-
         }
 
         BufferedImage image = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_RGB);

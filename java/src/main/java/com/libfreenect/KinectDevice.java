@@ -51,7 +51,7 @@ public class KinectDevice implements Kinect {
     private Led led;
     private Accelerometer accelerometer;
     private Camera rgbCamera;
-    private Camera depthCamera;
+    private KinectDepthCamera depthCamera;
 
     static {
         try {
@@ -129,9 +129,9 @@ public class KinectDevice implements Kinect {
     /**
      * Get the Kinect's Depth Camera
      *
-     * @return Depth Camera
+     * @return KinectDepthCamera Camera
      */
-    public Camera getDepthCamera () {
+    public KinectDepthCamera getDepthCamera () {
         return depthCamera;
     }
 
@@ -140,7 +140,7 @@ public class KinectDevice implements Kinect {
      *
      * @param depthCamera new depth camera to assign to the Kinect
      */
-    private void setDepthCamera(Camera depthCamera) {
+    private void setDepthCamera(KinectDepthCamera depthCamera) {
         this.depthCamera = depthCamera;
     }
 
